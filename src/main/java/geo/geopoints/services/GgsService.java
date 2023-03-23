@@ -11,18 +11,21 @@ import java.util.List;
 
 @Service
 @Transactional
-public class GgsSetvice {
+public class GgsService {
     private final GgsRepository ggsRepository;
 
     @Autowired
-    public GgsSetvice(GgsRepository ggsRepository) {
+    public GgsService(GgsRepository ggsRepository) {
         this.ggsRepository = ggsRepository;
     }
+    public void saveGgs(List<Ggs> points){
+        ggsRepository.saveAll(points);
+    }
 
-    public List<Ggs> listOfGgs(double [] coordinates) {
-        double x = coordinates[0];
-        double y = coordinates[1];
+    public List<Ggs> listOfGgs(String stringX, String stringY) {
+        double x = Double.parseDouble(stringX);
+        double y = Double.parseDouble(stringY);
         return ggsRepository.findAll().stream()
-                .filter(a -> a.getCoordinates()[1] - x <=10.15 &&a.getCoordinates()[0] - y <=10.15 ).toList();
+                .filter(a -> a.getCoordinates()[1] - x <=0.15 &&a.getCoordinates()[0] - y <=0.15 ).toList();
     }
 }
