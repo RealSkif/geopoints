@@ -9,85 +9,71 @@ import geo.geopoints.models.Ggs;
 
 import java.util.ArrayList;
 import java.util.List;
- class Entity {
-    private Geometry geometry;
-    private Parameters parameters;
-     public Parameters getParameters() {
-         return parameters;
-     }
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-     public void setParameters(Parameters parameters) {
-         this.parameters = parameters;
-     }
-
-    public Geometry getGeometry() {
-        return geometry;
-    }
-
-    public void setGeometry(Geometry geometry) {
-        this.geometry = geometry;
-    }
-
-
- }
- class Parameters {private String name;
-     private String mark;
-     public String getName() {
-         return name;
-     }
-
-     public void setName(String name) {
-         this.name = name;
-     }
-
-     public String getMark() {
-         return mark;
-     }
-
-     public void setMark(String mark) {
-         this.mark = mark;
-     }
-
- }
-
- class Geometry {
-    private List<Double> coordinates;
-
-    public List<Double> getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(List<Double> coordinates) {
-        this.coordinates = coordinates;
-    }
-}
-
- class Entities {
-    private List<Entity> entities;
-
-    public List<Entity> getEntities() {
-        return entities;
-    }
-
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
-    }
-}
 public class GgsJsonParser {
     ObjectMapper objectMapper = new ObjectMapper();
 
     public List<Ggs> parseJsonToGgs(String json) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Entities entities = objectMapper.readValue(json, Entities.class);
+        List<Ggs> points = new ArrayList<>();
 
-        for (Entity entity : entities.getEntities()) {
-            System.out.println( entity.getGeometry().getCoordinates());
-//            System.out.println( entity.getParameters().getName());
-//            System.out.println( entity.getParameters().getMark());
 
-            // Do something with the coordinates and name fields
+        String regExForCoord = "\"coordinates\":\\[\\s*-?\\d+(?:\\.\\d+)?(?:e[+-]?\\d+)?\\s*,\\s*-?\\d+(?:\\.\\d+)?(?:e[+-]?\\d+)?\\s*\\]";
+        String regExForIndex = "\"index\":\"[^\"]+\"";
+        String regExForMark = "\"mark\":\"[^\"]+\"";
+        String regExForCenterType =  "\"centertype\":\"[^\"]+\"";
+        String regExForSighType = "\"signtype\":\"[^\"]+\"";
+        String regExForName = "\"name\":\"[^\"]+\"";
+        Pattern pattern = Pattern.compile(regExForName);
+        Pattern patternIndex = Pattern.compile(regExForIndex);
+        Pattern patternMark = Pattern.compile(regExForMark);
+        Pattern patternSightipe = Pattern.compile(regExForSighType);
+        Pattern patternCentertype = Pattern.compile(regExForCenterType);
+        Pattern patternCoord = Pattern.compile(regExForCoord);
+        Matcher matcher = pattern.matcher(json);
+        Matcher matcherInd = patternIndex.matcher(json);
+        Matcher matcherMaDrk = patternMark.matcher(json);
+        Matcher matcherSigh = patternSightipe.matcher(json);
+        Matcher matcherCenter = patternCentertype.matcher(json);
+        Matcher matcherCoord = patternCoord.matcher(json);
+           while(matcher.find()){
+               Ggs ggs = new Ggs();
+               ggs.setName(matcher.group().replace("\"name\":\"", "")
+                       .replace("\"", ""));
+               points.add(ggs);
         }
+        int counter = 0;
+            while(matcherInd.find()){
+                points.get(counter++).setIndex(matcherInd.group().replace("\"index\":\"", "")
+                        .replace("\"", ""));
+            }
+        counter = 0;
+            while(matcherMaDrk.find()){
+                points.get(counter++).setMark(matcherMaDrk.group().replace("\"mark\":\"", "")
+                        .replace("\"", ""));
+            }
+        counter = 0;
+            while(matcherSigh.find()){
+                points.get(counter++).setSighType(matcherSigh.group().replace("\"signtype\":\"", "")
+                        .replace("\"", ""));
+            }
+        counter = 0;
+            while(matcherCenter.find()){
+                points.get(counter++).setCenterType(matcherCenter.group().replace("\"centertype\":\"", "")
+                        .replace("\"", ""));
+            }
+        counter = 0;
+            while(matcherCoord.find()){
+                String[] s = matcherCoord.group().replace("\"coordinates\":[", "")
+                        .replace("]", "").split(",");
+                double[] coord = {Double.parseDouble(s[0]), Double.parseDouble(s[1])};
+                points.get(counter++).setCoordinates(coord);
+            }
+        counter = 0;
+
+
 //        JsonNode obj = objectMapper.readTree(json);
 //        Ggs ggs = new Ggs();
 //        double[] coordinates = new double[2];
@@ -117,8 +103,7 @@ public class GgsJsonParser {
 //                .replace("\"", ""));
 //        ggs.setName(String.valueOf((obj.get("properties").get("name")))
 //                .replace("\"", ""));
-        List<Ggs> points = new ArrayList<>();
-//        points.add(ggs);
+
         return points;
     }
 }
