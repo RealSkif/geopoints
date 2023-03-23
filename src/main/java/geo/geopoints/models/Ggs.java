@@ -20,13 +20,14 @@ public class Ggs {
     @Column(name = "centertype")
     String centerType;
     @Column(name = "coordinates")
-    float[] coordinates;
+    double[] coordinates;
 
 
     public Ggs() {
     }
 
-    public Ggs(String name, String index, String mark, String sighType, String centerType, float[] coordinates) {
+    public Ggs(String name, String index, String mark,
+               String sighType, String centerType, double[] coordinates) {
         this.name = name;
         this.index = index;
         this.mark = mark;
@@ -75,11 +76,11 @@ public class Ggs {
         this.centerType = centerType;
     }
 
-    public float[] getCoordinates() {
+    public double[] getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(float[] coordinates) {
+    public void setCoordinates(double[] coordinates) {
         this.coordinates = coordinates;
     }
 }

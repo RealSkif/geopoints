@@ -18,11 +18,11 @@ public class GgsSetvice {
     public GgsSetvice(GgsRepository ggsRepository) {
         this.ggsRepository = ggsRepository;
     }
-//    @Query("SELECT u FROM ggs u WHERE (u.coordinates[0] - 1 < 15)")
-    public List<Ggs> listOfGgs(float [] coordinates) {
-        float x = coordinates[0];
-        float y = coordinates[1];
+
+    public List<Ggs> listOfGgs(double [] coordinates) {
+        double x = coordinates[0];
+        double y = coordinates[1];
         return ggsRepository.findAll().stream()
-                .filter(a -> a.getCoordinates()[0] - x <=0.15 &&a.getCoordinates()[1] - y <=0.15 ).toList();
+                .filter(a -> a.getCoordinates()[1] - x <=10.15 &&a.getCoordinates()[0] - y <=10.15 ).toList();
     }
 }
