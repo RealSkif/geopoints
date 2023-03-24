@@ -73,37 +73,6 @@ public class GgsJsonParser {
             }
         counter = 0;
 
-
-//        JsonNode obj = objectMapper.readTree(json);
-//        Ggs ggs = new Ggs();
-//        double[] coordinates = new double[2];
-//        String s = String.valueOf(obj.get("geometry").get("coordinates"));
-//        s = s.replace("[", "").replace("]", "");
-//        coordinates[0] = Double.parseDouble(s.split(",")[0]);
-//        coordinates[1] = Double.parseDouble(s.split(",")[1]);
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        List<Ggs> employeeList = objectMapper.readValue(json, new TypeReference<>(){});
-//        System.out.println(String.valueOf((obj.get("properties").get("index"))));
-//        System.out.println(String.valueOf((obj.get("properties").get("mark"))));
-//        System.out.println(String.valueOf((obj.get("properties").get("centertype"))));
-//        System.out.println(String.valueOf((obj.get("properties").get("signtype"))));
-//        System.out.println(String.valueOf((obj.get("properties").get("name"))));
-//        System.out.println(employeeList);
-
-
-//
-//        ggs.setCoordinates(coordinates);
-//        ggs.setIndex(String.valueOf(((obj.get("properties").get("index"))))
-//                .replace("\"", ""));
-//        ggs.setMark(String.valueOf((obj.get("properties").get("mark")))
-//                .replace("\"", ""));
-//        ggs.setCenterType(String.valueOf((obj.get("properties").get("centertype")))
-//                .replace("\"", ""));
-//        ggs.setSighType(String.valueOf((obj.get("properties").get("signtype")))
-//                .replace("\"", ""));
-//        ggs.setName(String.valueOf((obj.get("properties").get("name")))
-//                .replace("\"", ""));
-
         return points;
     }
 }

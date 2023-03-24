@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,10 +24,9 @@ public class GgsService {
         ggsRepository.saveAll(points);
     }
 
-    public List<Ggs> listOfGgs(String stringX, String stringY) {
-        double x = Double.parseDouble(stringX);
-        double y = Double.parseDouble(stringY);
+    public List<Ggs> findByCoordinates(double x, double y) {
         return ggsRepository.findAll().stream()
-                .filter(a -> a.getCoordinates()[1] - x <=0.15 &&a.getCoordinates()[0] - y <=0.15 ).toList();
+                .filter(a -> Math.abs(a.getCoordinates()[1] - x) <=0.1 && Math.abs(a.getCoordinates()[0] - y) <=0.1 )
+                .toList();
     }
 }

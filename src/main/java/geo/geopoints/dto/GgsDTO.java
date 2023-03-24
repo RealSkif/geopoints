@@ -1,72 +1,79 @@
 package geo.geopoints.dto;
 
-import jakarta.persistence.Column;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import geo.geopoints.models.Ggs;
+import java.util.*;
 
 public class GgsDTO {
-    String name;
-    String index;
-    String mark;
-    String sighType;
-    String centerType;
-    float[] coordinates;
+    private String type;
+    private double[] bbox;
+    private Map<String, Object> geometry;
+    private Map<String, Object> properties;
+
+    public GgsDTO(String type, double[] bbox, Map<String, Object> geometry, Map<String, Object> properties) {
+        this.type = type;
+        this.bbox = bbox;
+        this.geometry = geometry;
+        this.properties = properties;
+    }
 
     public GgsDTO() {
     }
 
-    public GgsDTO(String name, String index, String mark, String sighType, String centerType, float[] coordinates) {
-        this.name = name;
-        this.index = index;
-        this.mark = mark;
-        this.sighType = sighType;
-        this.centerType = centerType;
-        this.coordinates = coordinates;
+    public String getType() {
+        return type;
     }
 
-    public String getName() {
-        return name;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public double[] getBbox() {
+        return bbox;
     }
 
-    public String getIndex() {
-        return index;
+    public void setBbox(double[] bbox) {
+        this.bbox = bbox;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public Map<String, Object> getGeometry() {
+        return geometry;
     }
 
-    public String getMark() {
-        return mark;
+    public void setGeometry(Map<String, Object> geometry) {
+        this.geometry = geometry;
     }
 
-    public void setMark(String mark) {
-        this.mark = mark;
+    public Map<String, Object> getProperties() {
+        return properties;
     }
 
-    public String getSighType() {
-        return sighType;
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
-    public void setSighType(String sighType) {
-        this.sighType = sighType;
-    }
+    public List<Ggs> convertToGgs(String request) throws JsonProcessingException {
+        List<Ggs> points = new ArrayList<>();
 
-    public String getCenterType() {
-        return centerType;
-    }
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    public void setCenterType(String centerType) {
-        this.centerType = centerType;
-    }
+        GgsDTO[] ggsDTO = objectMapper.readValue(request, GgsDTO[].class);
+        for (GgsDTO element : ggsDTO) {
+            Ggs ggs = new Ggs();
+            ggs.setName((String) element.properties.get("name"));
+            ggs.setIndex((String) element.properties.get("index"));
+            ggs.setCenterType((String) element.properties.get("centertype"));
+            ggs.setSighType((String) element.properties.get("signtype"));
+            ggs.setMark((String) element.properties.get("mark"));
+            ggs.setCoordinates(new double[]{new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(0),
+                    new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(1)});
 
-    public float[] getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(float[] coordinates) {
-        this.coordinates = coordinates;
+            points.add(ggs);
+        }
+        return points;
     }
 }

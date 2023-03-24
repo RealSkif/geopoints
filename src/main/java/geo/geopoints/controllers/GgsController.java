@@ -1,9 +1,9 @@
 package geo.geopoints.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import geo.geopoints.dto.GgsDTO;
 import geo.geopoints.models.Ggs;
 import geo.geopoints.services.GgsService;
-import geo.geopoints.util.GgsJsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,23 +14,22 @@ import java.util.Map;
 @RequestMapping("/ggs")
 public class GgsController {
     private final GgsService ggsService;
-    private final GgsJsonParser ggsJsonParser;
+
+    private final GgsDTO ggsDTO;
+
     @Autowired
-    public GgsController(GgsService ggsService, GgsJsonParser ggsJsonParser) {
+    public GgsController(GgsService ggsService, GgsDTO ggsDTO) {
         this.ggsService = ggsService;
-        this.ggsJsonParser = ggsJsonParser;
+        this.ggsDTO = ggsDTO;
     }
 
     @GetMapping()
-    public List<Ggs> listOfPoints(@RequestBody Map<String, String> request) {
-        System.out.println(ggsService.listOfGgs(request.get("x"), request.get("y")));
-        return ggsService.listOfGgs(request.get("x"), request.get("y"));
+    public List<Ggs> findByCoordinates(@RequestBody Map<String, Double> request) {
+        return ggsService.findByCoordinates(request.get("x"), request.get("y"));
     }
+
     @PostMapping("/add")
     public void ggsToDB(@RequestBody String request) throws JsonProcessingException {
-
-        ggsService.saveGgs(ggsJsonParser.parseJsonToGgs(request));
-
+        ggsService.saveGgs(ggsDTO.convertToGgs(request));
     }
-
 }
