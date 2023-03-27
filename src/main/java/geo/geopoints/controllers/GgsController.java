@@ -23,9 +23,9 @@ public class GgsController {
         this.ggsDTO = ggsDTO;
     }
 
-    @GetMapping()
+    @PostMapping()
     public List<Ggs> findByCoordinates(@RequestBody Map<String, Double> request) {
-        return ggsService.findByCoordinates(request.get("x"), request.get("y"));
+        return ggsService.findByCoordinates(request.get("x"), request.get("y"), request.get("radius"));
     }
 
     @PostMapping("/add")
