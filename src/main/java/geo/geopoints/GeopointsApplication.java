@@ -1,6 +1,7 @@
 package geo.geopoints;
 
 import geo.geopoints.dto.GgsDTO;
+import geo.geopoints.dto.GnsDTO;
 import geo.geopoints.util.GgsJsonParser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,10 @@ public class GeopointsApplication {
     @Bean
     public GgsDTO ggsDTO() {
         return new GgsDTO();
+    }
+ @Bean
+    public GnsDTO gnsDTO() {
+        return new GnsDTO();
     }
 
 }
