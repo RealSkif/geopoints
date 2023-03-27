@@ -19,6 +19,8 @@ public class Gns {
     String sighType;
     @Column(name = "centertype")
     String centerType;
+    @Column(name = "maingeographyfeature")
+    String maingeographyfeature;
     @Column(name = "coordinates")
     double[] coordinates;
 
@@ -27,12 +29,13 @@ public class Gns {
     }
 
     public Gns(String name, String index, String mark,
-               String sighType, String centerType, double[] coordinates) {
+               String sighType, String centerType, String maingeographyfeature, double[] coordinates) {
         this.name = name;
         this.index = index;
         this.mark = mark;
         this.sighType = sighType;
         this.centerType = centerType;
+        this.maingeographyfeature = maingeographyfeature;
         this.coordinates = coordinates;
     }
 
@@ -74,6 +77,14 @@ public class Gns {
 
     public void setCenterType(String centerType) {
         this.centerType = centerType;
+    }
+
+    public String getMaingeographyfeature() {
+        return maingeographyfeature;
+    }
+
+    public void setMaingeographyfeature(String maingeographyfeature) {
+        this.maingeographyfeature = maingeographyfeature;
     }
 
     public double[] getCoordinates() {
