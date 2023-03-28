@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import geo.geopoints.models.Ggs;
+
 import java.util.*;
 
 public class GgsDTO {
@@ -56,6 +57,8 @@ public class GgsDTO {
     }
 
     public List<Ggs> convertToGgs(String request) throws JsonProcessingException {
+        request = request.replace("{\"entities\":", "")
+                .replaceAll(",\"entityCount\":\\d+}", "");
         List<Ggs> points = new ArrayList<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -67,11 +70,10 @@ public class GgsDTO {
             ggs.setName((String) element.properties.get("name"));
             ggs.setIndex((String) element.properties.get("index"));
             ggs.setCenterType((String) element.properties.get("centertype"));
-            ggs.setSighType((String) element.properties.get("signtype"));
+            ggs.setSighType((String) element.properties.get("sightype"));
             ggs.setMark((String) element.properties.get("mark"));
             ggs.setCoordinates(new double[]{new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(0),
                     new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(1)});
-
             points.add(ggs);
         }
         return points;

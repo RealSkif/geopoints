@@ -58,23 +58,14 @@ public class GnsDTO {
     }
 
     public List<Gns> convertToGns(String request) throws JsonProcessingException {
+        request = request.replace("{\"entities\":", "")
+                .replaceAll(",\"entityCount\":\\d+}", "");
         List<Gns> points = new ArrayList<>();
-
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        System.out.println(request);
         GnsDTO[] gnsDTO = objectMapper.readValue(request, GnsDTO[].class);
-        System.out.println(Arrays.toString(gnsDTO));
         for (GnsDTO element : gnsDTO) {
             Gns gns = new Gns();
-            System.out.println(element.properties);
-            System.out.println(element.geometry);
-//            System.out.println(element.properties.get("name"));
-//            System.out.println(element.properties.get("index"));
-//            System.out.println(element.properties.get("centertype"));
-//            System.out.println(element.properties.get("signtype"));
-//            System.out.println(element.properties.get("mark"));
-
             gns.setMaingeographyfeature((String) element.properties.get("maingeographyfeature"));
             gns.setName((String) element.properties.get("name"));
             gns.setIndex((String) element.properties.get("index"));
