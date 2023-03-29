@@ -48,7 +48,7 @@ public class GgsDTO {
         this.geometry = geometry;
     }
 
-    public Map<String, Object> getProperties() {
+    public Map<String, Object> getProperties(String regionsRef) {
         return properties;
     }
 
@@ -70,8 +70,13 @@ public class GgsDTO {
             ggs.setName((String) element.properties.get("name"));
             ggs.setIndex((String) element.properties.get("index"));
             ggs.setCenterType((String) element.properties.get("centertype"));
-            ggs.setSighType((String) element.properties.get("sightype"));
+            ggs.setSighType((String) element.properties.get("signtype"));
             ggs.setMark((String) element.properties.get("mark"));
+            String msk = (String) element.properties.get("epsgs");
+            if(msk == null)ggs.setMsk("-");
+            else ggs.setMsk(msk.replaceAll(".*\"МСК-", "")
+                    .replaceAll("\\s.*$", ""));
+            ggs.setRegions(element.properties.get("regions_ref").toString()) ;
             ggs.setCoordinates(new double[]{new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(0),
                     new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(1)});
             points.add(ggs);

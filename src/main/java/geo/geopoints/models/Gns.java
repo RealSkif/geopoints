@@ -21,6 +21,10 @@ public class Gns {
     String centerType;
     @Column(name = "maingeographyfeature")
     String maingeographyfeature;
+    @Column(name = "msk")
+    String msk;
+    @Column(name = "regions_ref")
+    String regions_ref;
     @Column(name = "coordinates")
     double[] coordinates;
 
@@ -28,14 +32,16 @@ public class Gns {
     public Gns() {
     }
 
-    public Gns(String name, String index, String mark,
-               String sighType, String centerType, String maingeographyfeature, double[] coordinates) {
+    public Gns(String name, String index, String mark, String sighType, String centerType,
+               String maingeographyfeature, String msk, String regions_ref, double[] coordinates) {
         this.name = name;
         this.index = index;
         this.mark = mark;
         this.sighType = sighType;
         this.centerType = centerType;
         this.maingeographyfeature = maingeographyfeature;
+        this.msk = msk;
+        this.regions_ref = regions_ref;
         this.coordinates = coordinates;
     }
 
@@ -85,6 +91,22 @@ public class Gns {
 
     public void setMaingeographyfeature(String maingeographyfeature) {
         this.maingeographyfeature = maingeographyfeature;
+    }
+
+    public String getMsk() {
+        return msk;
+    }
+
+    public void setMsk(String msk) {
+        this.msk = msk;
+    }
+
+    public String getRegions_ref() {
+        return regions_ref;
+    }
+
+    public void setRegions_ref(String regions_ref) {
+        this.regions_ref = regions_ref;
     }
 
     public double[] getCoordinates() {

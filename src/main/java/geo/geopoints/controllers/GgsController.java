@@ -27,7 +27,10 @@ public class GgsController {
     public List<Ggs> findByCoordinates(@RequestBody Map<String, Double> request) {
         return ggsService.findByCoordinates(request.get("x"), request.get("y"), request.get("radius"));
     }
-
+    @PostMapping()
+    public List<Ggs> findBymsk(@RequestBody Map<String, String> request) {
+        return ggsService.findBymsk(request.get("msk"));
+    }
     @PostMapping("/add")
     public void ggsToDB(@RequestBody String request) throws JsonProcessingException {
         ggsService.saveGgs(ggsDTO.convertToGgs(request));

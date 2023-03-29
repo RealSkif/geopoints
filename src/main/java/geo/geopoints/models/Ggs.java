@@ -19,6 +19,10 @@ public class Ggs {
     String sighType;
     @Column(name = "centertype")
     String centerType;
+    @Column(name = "msk")
+    String msk;
+    @Column(name = "regions_ref")
+    String regions;
     @Column(name = "coordinates")
     double[] coordinates;
 
@@ -27,12 +31,14 @@ public class Ggs {
     }
 
     public Ggs(String name, String index, String mark,
-               String sighType, String centerType, double[] coordinates) {
+               String sighType, String centerType, String msk, String regions_ref, double[] coordinates) {
         this.name = name;
         this.index = index;
         this.mark = mark;
         this.sighType = sighType;
         this.centerType = centerType;
+        this.msk = msk;
+        this.regions = regions_ref;
         this.coordinates = coordinates;
     }
 
@@ -74,6 +80,22 @@ public class Ggs {
 
     public void setCenterType(String centerType) {
         this.centerType = centerType;
+    }
+
+    public String getMsk() {
+        return msk;
+    }
+
+    public void setMsk(String msk) {
+        this.msk = msk;
+    }
+
+    public String getRegions() {
+        return regions;
+    }
+
+    public void setRegions(String regions_ref) {
+        this.regions = regions_ref;
     }
 
     public double[] getCoordinates() {
