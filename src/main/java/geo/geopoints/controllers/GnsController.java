@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import geo.geopoints.dto.GnsDTO;
 import geo.geopoints.models.Gns;
 import geo.geopoints.services.GnsService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,11 @@ public class GnsController {
         this.gnsDTO = gnsDTO;
     }
 
+    @PostMapping("/msk")
+    public List<Gns> findBymsk(@RequestBody Map<String, String> request) {
+        return gnsService.findBymsk(request.get("msk"));
+    }
+
     @PostMapping()
     public List<Gns> findByCoordinates(@RequestBody Map<String, Double> request) {
         return gnsService.findByCoordinates(request.get("x"), request.get("y"), request.get("radius"));
@@ -36,4 +42,5 @@ public class GnsController {
     public void gnsToDB(@RequestBody String request) throws JsonProcessingException {
         gnsService.saveGns(gnsDTO.convertToGns(request));
     }
+
 }

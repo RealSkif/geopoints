@@ -27,7 +27,7 @@ public class GgsController {
     public List<Ggs> findByCoordinates(@RequestBody Map<String, Double> request) {
         return ggsService.findByCoordinates(request.get("x"), request.get("y"), request.get("radius"));
     }
-    @PostMapping()
+    @PostMapping("/msk")
     public List<Ggs> findBymsk(@RequestBody Map<String, String> request) {
         return ggsService.findBymsk(request.get("msk"));
     }

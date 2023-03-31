@@ -2,6 +2,7 @@ package geo.geopoints;
 
 import geo.geopoints.dto.GgsDTO;
 import geo.geopoints.dto.GnsDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,9 @@ public class GeopointsApplication {
     public GnsDTO gnsDTO() {
         return new GnsDTO();
     }
-
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 }
 
