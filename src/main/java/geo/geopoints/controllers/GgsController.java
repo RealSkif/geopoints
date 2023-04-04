@@ -24,7 +24,7 @@ public class GgsController {
     }
 
     @PostMapping()
-    public List<Ggs> findByCoordinates(@RequestBody Map<String, Double> request) {
+    public List<Ggs> findByCoordinates(@RequestBody Map<String, Float> request) {
         return ggsService.findByCoordinates(request.get("x"), request.get("y"), request.get("radius"));
     }
     @PostMapping("/msk")

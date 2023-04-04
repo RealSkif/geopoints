@@ -82,8 +82,9 @@ public class GnsDTO {
             else gns.setMsk(msk.replaceAll(".*\"МСК-", "")
                     .replaceAll("\\s.*$", ""));
             gns.setRegions_ref(element.properties.get("regions_ref").toString());
-            gns.setCoordinates(new double[]{new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(0),
-                    new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(1)});
+            ArrayList<Double> coord = (ArrayList<Double>) element.geometry.get("coordinates");
+            gns.setLatitude(coord.get(0));
+            gns.setLongitude(coord.get(1));
             points.add(gns);
         }
         return points;

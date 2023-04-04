@@ -22,17 +22,17 @@ public class GgsService {
     public void saveGgs(List<Ggs> points) {
         ggsRepository.saveAll(points);
     }
+
     public List<Ggs> findByRegions_ref(String ref) {
         return ggsRepository.findByregions(ref);
     }
-    public List<Ggs> findBymsk(String msk){
+
+    public List<Ggs> findBymsk(String msk) {
         return ggsRepository.findBymsk(msk);
     }
 
-    public List<Ggs> findByCoordinates(double x, double y, double radius) {
-        return ggsRepository.findAll().stream()
-                .filter(a -> Math.abs(a.getCoordinates()[1] - x) <= 0.01 * radius
-                        && Math.abs(a.getCoordinates()[0] - y) <= 0.01 * radius)
-                .toList();
+
+    public List<Ggs> findByCoordinates(float x, float y, float radius) {
+        return ggsRepository.findByCoordinates(x, y, radius);
     }
 }

@@ -77,8 +77,9 @@ public class GgsDTO {
             else ggs.setMsk(msk.replaceAll(".*\"МСК-", "")
                     .replaceAll("\\s.*$", ""));
             ggs.setRegions(element.properties.get("regions_ref").toString()) ;
-            ggs.setCoordinates(new double[]{new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(0),
-                    new ArrayList<Double>((Collection<? extends Double>) element.geometry.get("coordinates")).get(1)});
+            ArrayList<Double> coord = (ArrayList<Double>) element.geometry.get("coordinates");
+            ggs.setLatitude(coord.get(0));
+            ggs.setLongitude(coord.get(1));
             points.add(ggs);
         }
         return points;

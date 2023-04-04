@@ -29,9 +29,6 @@ public class GnsService {
     }
 
     public List<Gns> findByCoordinates(double x, double y, double radius) {
-        return gnsRepository.findAll().stream()
-                .filter(a -> Math.abs(a.getCoordinates()[1] - x) <= 0.01 * radius
-                        && Math.abs(a.getCoordinates()[0] - y) <= 00.01 * radius)
-                .toList();
+        return gnsRepository.findByCoordinates(x, y, radius);
     }
 }

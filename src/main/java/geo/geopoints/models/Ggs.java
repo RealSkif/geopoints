@@ -2,44 +2,64 @@ package geo.geopoints.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+
 @Entity
 @Table(name = "ggs")
 public class Ggs {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
     @Column(name = "name")
-    String name;
+    private String name;
     @Column(name = "index")
-    String index;
+    private String index;
     @Column(name = "mark")
-    String mark;
+    private  String mark;
     @Column(name = "sightype")
-    String sighType;
+    private  String sighType;
     @Column(name = "centertype")
-    String centerType;
+    private  String centerType;
     @Column(name = "msk")
-    String msk;
+    private  String msk;
     @Column(name = "regions_ref")
-    String regions;
-    @Column(name = "coordinates")
-    double[] coordinates;
+    private  String regions;
+    @Column(name = "latitude")
+    private double latitude;
+    @Column(name = "longitude")
+    private double longitude;
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
     public Ggs() {
     }
 
-    public Ggs(String name, String index, String mark,
-               String sighType, String centerType, String msk, String regions_ref, double[] coordinates) {
+    public Ggs(String name, String index, String mark, String sighType, String centerType,
+               String msk, String regions, double latitude, double longitude) {
         this.name = name;
         this.index = index;
         this.mark = mark;
         this.sighType = sighType;
         this.centerType = centerType;
         this.msk = msk;
-        this.regions = regions_ref;
-        this.coordinates = coordinates;
+        this.regions = regions;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -98,11 +118,4 @@ public class Ggs {
         this.regions = regions_ref;
     }
 
-    public double[] getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(double[] coordinates) {
-        this.coordinates = coordinates;
-    }
 }
