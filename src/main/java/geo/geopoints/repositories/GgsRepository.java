@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface GgsRepository extends JpaRepository<Ggs, Integer> {
 
-    @Query("SELECT e FROM Ggs e WHERE e.longitude <= :x + :r*0.01" +
-            " AND e.longitude >= :x - :r*0.01 " +
-            " AND e.latitude <= :y + :r*0.01 " +
-            " AND e.latitude >= :y - :r*0.01 ")
-    List<Ggs> findByCoordinates(@Param("x") double x, @Param("y") double y,  @Param("r") double r);
+    @Query("SELECT e FROM Ggs e WHERE e.longitude <= :eastX" +
+            " AND e.longitude >= :westX " +
+            " AND e.latitude <= :northY " +
+            " AND e.latitude >= :southY ")
+    List<Ggs> findByCoordinates(@Param("eastX") double eastX, @Param("westX") double westX,
+                                @Param("northY") double northY, @Param("southY") double southY);
 
-    List<Ggs> findByregions(String regionsRef);
     List<Ggs> findBymsk(String msk);
 
 }
