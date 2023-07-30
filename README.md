@@ -20,3 +20,4 @@
 [Telegram бот](https://github.com/RealSkif/geopointsTgBot) для удобного использования сервиса.
 [Web версия поиска геодезических пунктов](https://github.com/RealSkif/geopointsWeb)
 
+К сервису добавлена документация OpenAPI
