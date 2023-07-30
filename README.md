@@ -18,6 +18,7 @@
 Для получения пунктов ГНС такой же запрос нужно отправить на адрес http://194.87.199.170:8888/gns
 
 [Telegram бот](https://github.com/RealSkif/geopointsTgBot) для удобного использования сервиса.
+
 [Web версия поиска геодезических пунктов](https://github.com/RealSkif/geopointsWeb)
 
 К сервису добавлена документация OpenAPI
