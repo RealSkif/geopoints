@@ -26,7 +26,7 @@ public class Gns {
     @Column(name = "centertype")
     private String centerType;
     @Column(name = "maingeographyfeature")
-    private String maingeographyfeature;
+    private String mainGeographyFeature;
     @Column(name = "msk")
     private String msk;
     @Column(name = "regions_ref")
