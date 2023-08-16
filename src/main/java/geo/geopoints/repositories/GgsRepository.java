@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface GgsRepository extends JpaRepository<Ggs, Integer> {
-
     @Query("SELECT e FROM Ggs e WHERE e.longitude <= :eastX" +
             " AND e.longitude >= :westX " +
             " AND e.latitude <= :northY " +

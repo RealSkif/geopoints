@@ -35,6 +35,5 @@ public class Gns {
     private double latitude;
     @Column(name = "longitude")
     private double longitude;
-
 }
 

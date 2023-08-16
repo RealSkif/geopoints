@@ -3,7 +3,6 @@ package geo.geopoints;
 import geo.geopoints.gRpc.GeopointsServiceImpl;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,17 +13,16 @@ import java.io.IOException;
 @SpringBootApplication
 @EnableWebMvc
 public class GeopointsApplication {
-
-    public static void main(String[] args) throws IOException {
-
-        Server server = ServerBuilder.forPort(8082).addService(new GeopointsServiceImpl()).build();
-        server.start();
+    public static void main(String[] args)  {
         SpringApplication.run(GeopointsApplication.class, args);
     }
-
     @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
+    public Server grpcServer(GeopointsServiceImpl geopointsService) throws IOException {
+        Server server = ServerBuilder.forPort(8082)
+                .addService(geopointsService)
+                .build();
+        server.start();
+        return server;
     }
 }
 
