@@ -3,9 +3,11 @@ package geo.geopoints;
 import geo.geopoints.gRpc.GeopointsServiceImpl;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.IOException;
